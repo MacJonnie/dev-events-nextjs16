@@ -6,7 +6,7 @@ import {
   Document,
 } from "mongoose";
 
-export interface IEvent extends Document {
+export interface IEvent {
   title: string;
   slug: string;
   description: string;
@@ -25,7 +25,29 @@ export interface IEvent extends Document {
   updatedAt: Date;
 }
 
-const eventSchema = new Schema<IEvent>(
+export interface IEventDocument extends IEvent, Document {}
+export interface IEventDTO {
+  _id: string;
+  title: string;
+  slug: string;
+  description: string;
+  overview: string;
+  image: string;
+  venue: string;
+  location: string;
+  date: string;
+  time: string;
+  mode: string;
+  audience: string;
+  agenda: string[];
+  organizer: string;
+  tags: string[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+
+const eventSchema = new Schema<IEventDocument>(
   {
     title: {
       type: String,
@@ -139,9 +161,9 @@ eventSchema.pre("save", async function () {
   this.time = normalizedTime;
 });
 
-eventSchema.index({ slug: 1 }, { unique: true });
+// eventSchema.index({ slug: 1 }, { unique: true });
 
-const Event: Model<IEvent> =
-  models.Event || model<IEvent>("Event", eventSchema);
+const Event: Model<IEventDocument> =
+  models.Event || model<IEventDocument>("Event", eventSchema);
 
 export default Event;
