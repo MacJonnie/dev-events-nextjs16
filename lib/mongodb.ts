@@ -62,6 +62,8 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
     throw error;
   }
 
+  console.log("Connected DB:", mongoose.connection.name);
   return cached.conn;
+
 }
 
