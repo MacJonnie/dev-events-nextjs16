@@ -11,6 +11,7 @@ import Event from "./event.model";
 export interface IBooking extends Document {
   eventId: Types.ObjectId;
   email: string;
+  slug: string
   createdAt: Date;
   updatedAt: Date;
 }
@@ -28,6 +29,10 @@ const bookingSchema = new Schema<IBooking>(
       trim: true,
       lowercase: true,
     },
+    slug: {
+      type: String,
+      required: true
+    }
   },
   {
     timestamps: true,
